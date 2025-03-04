@@ -121,7 +121,7 @@ const actualizarMatricula = async (req, res) => {
         // Verificar si otro registro tiene el mismo código
         const codigoExistente = await Matricula.findOne({ codigo });
         if (codigoExistente && codigoExistente.id !== id) {
-            return res.status(400).json({ message: 'El código de matrícula ya está en uso' });
+            return res.status(400).json({ message: 'El código de la matrícula ya está en uso' });
         }
 
         // Validar si el estudiante es válido

@@ -1,5 +1,6 @@
 // Importar el Schema y el modelo de mongoose
 import { Schema, model } from 'mongoose';
+import { formatDates } from '../utils/formatDates.js';
 
 const estudianteSchema = new Schema({
     nombre: {
@@ -55,16 +56,11 @@ const estudianteSchema = new Schema({
         match: [/^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/, 'El correo debe ser válido.']
     }
 },
-    { versionKey: false }
+    { timestamps: true, versionKey: false }
 );
 
-// Modificar la salida JSON para mostrar fecha en formato YYYY-MM-DD
-estudianteSchema.set('toJSON', {
-    transform: (doc, ret) => {
-        ret.fecha_nacimiento = ret.fecha_nacimiento.toISOString().split('T')[0]; // Extraer solo la fecha
-        return ret;
-    }
-});
+// Formatear fechas
+estudianteSchema.plugin(formatDates);
 
 // Crear el modelo de estudiante
 export default model('Estudiante', estudianteSchema);

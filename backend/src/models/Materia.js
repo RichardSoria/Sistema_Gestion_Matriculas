@@ -1,5 +1,6 @@
 // Importar el Schema y el modelo de mongoose
 import { Schema, model } from 'mongoose';
+import { formatDates } from '../utils/formatDates.js';
 
 const materiaSchema = new Schema({
     nombre: {
@@ -28,7 +29,11 @@ const materiaSchema = new Schema({
         min: [1, 'Los créditos deben ser al menos 1']
     }
 },
-    { versionKey: false }
+    { timestamps: true, versionKey: false }
 );
+
+// Formatear fechas
+materiaSchema.plugin(formatDates);
+
 // Crear el modelo de materia
 export default model('Materia', materiaSchema);

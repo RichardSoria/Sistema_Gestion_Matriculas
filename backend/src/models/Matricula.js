@@ -1,4 +1,5 @@
 import { Schema, model } from 'mongoose';
+import { formatDates } from '../utils/formatDates.js';
 
 const matriculaSchema = new Schema({
     codigo: {
@@ -24,10 +25,13 @@ const matriculaSchema = new Schema({
         ref: 'Materia',
         required: [true, 'La materia es obligatoria']
     }
-}, { versionKey: false });
+}, { timestamps: true, versionKey: false });
 
 // Evitar matrículas duplicadas (un estudiante no puede matricularse en la misma materia más de una vez)
 matriculaSchema.index({ estudiante: 1, materia: 1 }, { unique: true });
+
+// Formatear fechas
+matriculaSchema.plugin(formatDates);
 
 // Exportar el modelo
 export default model('Matricula', matriculaSchema);

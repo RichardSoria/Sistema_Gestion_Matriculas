@@ -70,7 +70,7 @@ const crearEstudiante = async (req, res) => {
         const nuevoEstudiante = new Estudiante({ nombre, apellido, cedula, fecha_nacimiento, ciudad, direccion, telefono, email });
         await nuevoEstudiante.save();
 
-        res.status(201).json({ message: 'Estudiante creado correctamente' });
+        res.status(201).json({ message: `El estudiante ${nombre} ${apellido} ha sido creado correctamente` });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Error al crear el estudiante' });
